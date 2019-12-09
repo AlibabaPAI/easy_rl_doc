@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>easy_rl.models.linucb &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>easy_rl.models.linucb</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for easy_rl.models.linucb</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2019 Alibaba Inc. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="kn">from</span> <span class="nn">easy_rl.models.model_base</span> <span class="k">import</span> <span class="n">Model</span>
+
+
+<div class="viewcode-block" id="LinUCBModel"><a class="viewcode-back" href="../../../models.html#easy_rl.models.LinUCBModel">[docs]</a><span class="k">class</span> <span class="nc">LinUCBModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implementation of LinUCB algorithm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;linucb_model&quot;</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">_default_config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1"># \lambda balances the prior and likelihood</span>
+            <span class="s2">&quot;lbd&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">_default_config</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LinUCBModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">obs_space</span><span class="o">=</span><span class="n">obs_space</span><span class="p">,</span>
+            <span class="n">action_space</span><span class="o">=</span><span class="n">action_space</span><span class="p">,</span>
+            <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">learn_feed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;actions&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_ph</span><span class="p">),</span>
+                            <span class="p">(</span><span class="s2">&quot;rewards&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rewards_ph</span><span class="p">)])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extra_learn_fetches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the additional fetches when training</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span><span class="p">,</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="LinUCBModel.preprocess"><a class="viewcode-back" href="../../../models.html#easy_rl.models.LinUCBModel.preprocess">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Augment a constant one component.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LinUCBModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="n">dummy_components</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="n">dummy_component</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">dummy_components</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">obs</span><span class="p">,</span> <span class="n">dummy_component</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_build_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="n">name_or_scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="n">reuse</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">AUTO_REUSE</span><span class="p">):</span>
+            <span class="n">preprocessed_obs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_obs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">)</span>
+
+            <span class="n">estimated_mean</span><span class="p">,</span> <span class="n">estimated_stddev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_obs</span><span class="p">(</span>
+                <span class="n">input_obs</span><span class="o">=</span><span class="n">preprocessed_obs</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;ridge_regression&quot;</span><span class="p">)</span>
+            <span class="c1"># exploration via UCB</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span>
+                <span class="n">estimated_mean</span> <span class="o">+</span> <span class="n">estimated_stddev</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_loss</span><span class="p">(</span>
+                <span class="n">estimated_values</span><span class="o">=</span><span class="n">estimated_mean</span><span class="p">,</span>
+                <span class="n">selected_arms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">actions_ph</span><span class="p">,</span>
+                <span class="n">target_values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rewards_ph</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_train</span><span class="p">(</span>
+                <span class="n">input_obs</span><span class="o">=</span><span class="n">preprocessed_obs</span><span class="p">,</span>
+                <span class="n">estimated_values</span><span class="o">=</span><span class="n">estimated_mean</span><span class="p">,</span>
+                <span class="n">selected_arms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">actions_ph</span><span class="p">,</span>
+                <span class="n">target_values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rewards_ph</span><span class="p">,</span>
+                <span class="n">global_step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_step</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scope_vars</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">GraphKeys</span><span class="o">.</span><span class="n">GLOBAL_VARIABLES</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_encode_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_obs</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;encode_obs&quot;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="n">name_or_scope</span><span class="o">=</span><span class="n">scope</span><span class="p">):</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">,</span> <span class="n">input_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant_initializer</span><span class="p">(</span><span class="o">.</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">init_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span> <span class="o">*</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;lbd&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">input_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="p">]</span>
+            <span class="n">init_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">init_p</span><span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;p&quot;</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">,</span> <span class="n">input_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                       <span class="n">input_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant_initializer</span><span class="p">(</span><span class="n">init_p</span><span class="p">))</span>
+            <span class="c1"># y_a=w_{a}^{T}x for each a \in A</span>
+            <span class="c1"># (A, k) * (bs, 1, k) = (bs, A, k), then reduce into (bs, A)</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># var_a = x^{T}P_{a}x for each a \in A</span>
+            <span class="c1"># (|A|, K, K) * (batch_size, 1, 1, K) = (batch_size, |A|, K, K)</span>
+            <span class="c1"># and reduce the last axis leading to (batch_size, |A|, K)</span>
+            <span class="c1"># which could be viewed as P_{a}x for each a \in A</span>
+            <span class="n">P_multiplied_by_x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span>
+                <span class="n">p</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">input_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># (batch_size, |A|, K) * (batch_size, 1, K) = (batch_size, |A|, K)</span>
+            <span class="c1"># and reduce the last axis leading to (batch_size, |A|)</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span>
+                <span class="n">P_multiplied_by_x</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># standard deviation = \sqrt(variance)</span>
+            <span class="n">stddev</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+        <span class="c1"># for convenience of var reuse</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stddev</span>
+
+    <span class="k">def</span> <span class="nf">_build_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimated_values</span><span class="p">,</span> <span class="n">selected_arms</span><span class="p">,</span> <span class="n">target_values</span><span class="p">):</span>
+        <span class="c1"># (batch_size, |A|)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">selected_arms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">)</span>
+        <span class="c1"># reduce the last axis of (batch_size, |A|) into (batch_size,)</span>
+        <span class="n">estimated</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">estimated_values</span> <span class="o">*</span> <span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">estimated</span> <span class="o">-</span> <span class="n">target_values</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">input_obs</span><span class="p">,</span>
+                     <span class="n">estimated_values</span><span class="p">,</span>
+                     <span class="n">selected_arms</span><span class="p">,</span>
+                     <span class="n">target_values</span><span class="p">,</span>
+                     <span class="n">global_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1">#w = tf.get_variable(name=&quot;w&quot;)</span>
+        <span class="c1">#p = tf.get_variable(name=&quot;p&quot;)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
+
+        <span class="c1"># select y_a for each (x, a) in the mini-batch</span>
+        <span class="c1"># (bs, |A|)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">selected_arms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">)</span>
+        <span class="c1"># reduce into (bs,)</span>
+        <span class="n">estimated</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">estimated_values</span> <span class="o">*</span> <span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># (bs,) - (bs,)</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">target_values</span> <span class="o">-</span> <span class="n">estimated</span>
+
+        <span class="c1"># (|A|, K, K) * (bs, |A|, 1, 1) = (bs, |A|, K, K)</span>
+        <span class="n">p_a</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># (batch_size, K, K)</span>
+        <span class="n">p_a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">p_a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># p_a * x for each (x, a) in the mini-batch</span>
+        <span class="c1"># (bs, K, K) * (bs, 1, K) = (bs, K, K) and reduce into (bs, K)</span>
+        <span class="n">pax</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">p_a</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># compute x^{T}p_{a}x whose shape is (bs,, 1)</span>
+        <span class="c1"># (bs, 1) * (bs, K) = (bs, K)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;lbd&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span>
+            <span class="n">pax</span> <span class="o">*</span> <span class="n">input_obs</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keep_dims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="o">*</span> <span class="n">pax</span>
+
+        <span class="c1"># (bs, K, -1) * (bs, K, K) = (bs, K, K)</span>
+        <span class="n">gc</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">p_a</span>
+        <span class="c1"># reduce into (bs, K)</span>
+        <span class="n">gc</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">control_dependencies</span><span class="p">([</span><span class="n">alpha</span><span class="p">,</span> <span class="n">g</span><span class="p">]):</span>
+            <span class="c1"># update w according to w = w + \alpha * g</span>
+            <span class="c1"># \alpha * g has shape (bs, 1) * (bs, K) = (bs, K)</span>
+            <span class="n">delta_w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span>
+            <span class="c1"># (bs, 1, K) * (bs, |A|, 1) = (bs, |A|, K)</span>
+            <span class="n">delta_w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">delta_w</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="c1"># reduce into (|A|, K)</span>
+            <span class="n">delta_w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">delta_w</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">update_w_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">delta_w</span><span class="p">)</span>
+            <span class="c1"># update p</span>
+            <span class="c1"># (bs, K, 1) * (bs, 1, K) = (bs, K, K)</span>
+            <span class="n">delta_p</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># (bs, 1, K, K) * (bs, |A|, 1, 1) = (bs, |A|, K, K)</span>
+            <span class="n">delta_p</span> <span class="o">=</span> <span class="n">delta_p</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># and reduce into (|A|, K, K)</span>
+            <span class="n">delta_p</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">delta_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">update_p_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">delta_p</span><span class="p">)</span>
+        <span class="n">update_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">update_w_op</span><span class="p">,</span> <span class="n">update_p_op</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">control_dependencies</span><span class="p">([</span><span class="n">update_op</span><span class="p">]):</span>
+            <span class="n">update_op_with_step_cnt</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">global_step</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">update_op</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

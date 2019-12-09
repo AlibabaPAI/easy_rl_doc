@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>easy_rl.models.ppo_model &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>easy_rl.models.ppo_model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for easy_rl.models.ppo_model</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2019 Alibaba Inc. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="kn">from</span> <span class="nn">easy_rl.models.model_base</span> <span class="k">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">easy_rl.utils</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="PPOModel"><a class="viewcode-back" href="../../../models.html#easy_rl.models.PPOModel">[docs]</a><span class="k">class</span> <span class="nc">PPOModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Proximal Policy Optimization agent ([Schulman et al., 2017]</span>
+<span class="sd">    (https://openai-public.s3-us-west-2.amazonaws.com/blog/2017-07/ppo/ppo-arxiv.pdf)&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;ppo_model&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">_default_config</span> <span class="o">=</span> <span class="p">{</span>
+
+            <span class="c1"># network config</span>
+            <span class="c1"># specify the parameters of network for each input state.</span>
+            <span class="c1"># a default config will be used if empty</span>
+            <span class="c1"># * it is recommended to overrider the `encode_obs` function and then implement a custom network structure.</span>
+            <span class="s2">&quot;network_spec&quot;</span><span class="p">:</span> <span class="p">{},</span>
+
+            <span class="c1"># model config</span>
+            <span class="c1"># clipping of likelihood ratio between old and new policy</span>
+            <span class="s2">&quot;likelihood_ratio_clipping&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+
+            <span class="c1"># training config</span>
+            <span class="c1"># coefficient for entroy</span>
+            <span class="s2">&quot;entroy_coef&quot;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+
+            <span class="c1"># coefficient for loss of value function</span>
+            <span class="s2">&quot;vf_coef&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+
+            <span class="c1"># parameter for grad clipping</span>
+            <span class="s2">&quot;global_norm_clip&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+
+            <span class="c1"># initialization of learning rate</span>
+            <span class="s2">&quot;lr_init&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">_default_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;model_config&#39;</span><span class="p">,</span> <span class="p">{}))</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">PPOModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">obs_space</span><span class="o">=</span><span class="n">obs_space</span><span class="p">,</span>
+            <span class="n">action_space</span><span class="o">=</span><span class="n">action_space</span><span class="p">,</span>
+            <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extra_act_fetches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the sample_action with action logits and state_value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;logits&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dist</span><span class="o">.</span><span class="n">distribution_params</span><span class="p">,</span>
+            <span class="s2">&quot;value_preds&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_preds</span>
+        <span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extra_learn_fetches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the additional fetches when training&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">learn_feed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the dict of placeholder of action logits and state_value.</span>
+<span class="sd">        the inputs will be used to calculate likelihood ratio between old and new policy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;obs&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">,</span>
+            <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_ph</span><span class="p">,</span>
+            <span class="s2">&quot;logits&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">logits_ph</span><span class="p">,</span>
+            <span class="s2">&quot;value_preds&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_preds_ph</span><span class="p">,</span>
+            <span class="s2">&quot;advantages&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">advantages_ph</span><span class="p">,</span>
+            <span class="s2">&quot;value_targets&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_targets_ph</span>
+        <span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">actor_sync_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_vars</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">all_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scope_vars</span>
+
+    <span class="k">def</span> <span class="nf">_build_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_value_preds</span><span class="p">,</span> <span class="n">behavior_value_preds</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span>
+                    <span class="n">logits</span><span class="p">,</span> <span class="n">advantages</span><span class="p">,</span> <span class="n">value_targets</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;implement specific loss function according to the optimization target</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            target_value_preds: estimator of state value from the target policy(the policy to optimize)</span>
+<span class="sd">            behavior_value_preds: estimator of state value from the behavior policy.</span>
+<span class="sd">            actions: action taken by the behavior policy.</span>
+<span class="sd">            logits: logits from the behavior policy.</span>
+<span class="sd">            advantages: state-action dependent advantage.</span>
+<span class="sd">            value_targets: target for value function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">likelihood_ratio_clipping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;likelihood_ratio_clipping&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">v_clipped</span> <span class="o">=</span> <span class="n">behavior_value_preds</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_value</span><span class="p">(</span>
+            <span class="n">target_value_preds</span> <span class="o">-</span> <span class="n">behavior_value_preds</span><span class="p">,</span>
+            <span class="o">-</span><span class="n">likelihood_ratio_clipping</span><span class="p">,</span> <span class="n">likelihood_ratio_clipping</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="s2">&quot;logits&quot;</span><span class="p">,</span> <span class="n">logits</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="s2">&quot;target_value_preds&quot;</span><span class="p">,</span> <span class="n">target_value_preds</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="s2">&quot;behavior_value_preds&quot;</span><span class="p">,</span> <span class="n">behavior_value_preds</span><span class="p">))</span>
+
+        <span class="c1"># value loss</span>
+        <span class="n">loss_v</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_loss</span><span class="p">(</span><span class="n">value_targets</span> <span class="o">-</span> <span class="n">target_value_preds</span><span class="p">),</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">l2_loss</span><span class="p">(</span><span class="n">value_targets</span> <span class="o">-</span> <span class="n">v_clipped</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="s2">&quot;loss_value&quot;</span><span class="p">,</span> <span class="n">loss_v</span><span class="p">))</span>
+
+        <span class="n">log_behavior_prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">sparse_softmax_cross_entropy_with_logits</span><span class="p">(</span>
+            <span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">actions</span><span class="p">)</span>
+
+        <span class="n">log_target_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dist</span><span class="o">.</span><span class="n">log_p</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="n">actions</span><span class="p">)</span>
+
+        <span class="n">prob_ratio</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="n">log_target_prob</span> <span class="o">-</span> <span class="n">log_behavior_prob</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="s2">&quot;target-behavior-prob_ration&quot;</span><span class="p">,</span> <span class="n">prob_ratio</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">likelihood_ratio_clipping</span><span class="p">:</span>
+            <span class="n">loss_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">prob_ratio</span> <span class="o">*</span> <span class="n">advantages</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clipped_prob_ratio</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_value</span><span class="p">(</span>
+                <span class="n">t</span><span class="o">=</span><span class="n">prob_ratio</span><span class="p">,</span>
+                <span class="n">clip_value_min</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">likelihood_ratio_clipping</span><span class="p">)),</span>
+                <span class="n">clip_value_max</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">likelihood_ratio_clipping</span><span class="p">))</span>
+            <span class="n">loss_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">tf</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="n">prob_ratio</span> <span class="o">*</span> <span class="n">advantages</span><span class="p">),</span>
+                <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="n">clipped_prob_ratio</span> <span class="o">*</span> <span class="n">advantages</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="s2">&quot;loss_policy&quot;</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">loss_p</span><span class="p">)))</span>
+
+        <span class="n">vf_coef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vf_coef&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">entroy_coef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;entroy_coef&#39;</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
+
+        <span class="c1"># entroy regularization</span>
+        <span class="n">entroy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dist</span><span class="o">.</span><span class="n">entropy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="s2">&quot;entroy&quot;</span><span class="p">,</span> <span class="n">entroy</span><span class="p">))</span>
+
+        <span class="c1"># total loss</span>
+        <span class="n">loss_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">loss_p</span> <span class="o">+</span> <span class="n">vf_coef</span> <span class="o">*</span> <span class="n">loss_v</span> <span class="o">-</span>
+                                 <span class="n">entroy_coef</span> <span class="o">*</span> <span class="n">entroy</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss_op</span>
+
+    <span class="k">def</span> <span class="nf">_build_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">grads_and_vars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">compute_gradients</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">var_list</span><span class="o">=</span><span class="nb">vars</span><span class="p">)</span>
+        <span class="n">grads_and_vars</span> <span class="o">=</span> <span class="p">[(</span><span class="n">grad</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span> <span class="k">for</span> <span class="n">grad</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">grads_and_vars</span>
+                          <span class="k">if</span> <span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># apply grad clipping</span>
+        <span class="n">grads</span><span class="p">,</span> <span class="nb">vars</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">grads_and_vars</span><span class="p">)</span>
+        <span class="n">clipped_grads</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_global_norm</span><span class="p">(</span>
+            <span class="n">grads</span><span class="p">,</span> <span class="n">clip_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;global_norm_clip&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+        <span class="n">grads_and_vars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">clipped_grads</span><span class="p">,</span> <span class="nb">vars</span><span class="p">))</span>
+
+        <span class="n">train_op</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span>
+            <span class="n">grads_and_vars</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">train_op</span>
+
+    <span class="k">def</span> <span class="nf">_build_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="c1"># get or create global_step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="n">name_or_scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="n">reuse</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">AUTO_REUSE</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_obs_ph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_next_obs_ph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_obs</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_ph</span><span class="p">)</span>
+            <span class="c1"># encode the input obs</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_embedding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_preds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_obs</span><span class="p">(</span>
+                <span class="n">input_obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_obs_ph</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;encode_obs&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_vars</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">GraphKeys</span><span class="o">.</span><span class="n">GLOBAL_VARIABLES</span><span class="p">,</span>
+                <span class="n">scope</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">get_variable_scope</span><span class="p">()</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;/encode_obs&quot;</span><span class="p">)</span>
+
+            <span class="c1"># build output action_op</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_actions_distribution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_embedding</span><span class="p">)</span>
+
+            <span class="c1"># build loss_op</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_loss</span><span class="p">(</span>
+                <span class="n">target_value_preds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value_preds</span><span class="p">,</span>
+                <span class="n">behavior_value_preds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value_preds_ph</span><span class="p">,</span>
+                <span class="n">actions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">actions_ph</span><span class="p">,</span>
+                <span class="n">value_targets</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value_targets_ph</span><span class="p">,</span>
+                <span class="n">advantages</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">advantages_ph</span><span class="p">,</span>
+                <span class="n">logits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logits_ph</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;is_replica&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_scope_vars</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span>
+                    <span class="n">tf</span><span class="o">.</span><span class="n">GraphKeys</span><span class="o">.</span><span class="n">GLOBAL_VARIABLES</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="c1"># build train_op</span>
+            <span class="n">init_lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;init_lr&#39;</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
+            <span class="n">lr_strategy_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lr_strategy_spec&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+            <span class="c1"># apply different decay strategy of learning rate</span>
+            <span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate_utils</span><span class="o">.</span><span class="n">LearningRateStrategy</span><span class="p">(</span>
+                <span class="n">init_lr</span><span class="o">=</span><span class="n">init_lr</span><span class="p">,</span>
+                <span class="n">strategy_spec</span><span class="o">=</span><span class="n">lr_strategy_spec</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">,</span> <span class="n">lr</span><span class="p">))</span>
+
+            <span class="n">opt</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_train</span><span class="p">(</span>
+                <span class="n">loss</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_step</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scope_vars</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">GraphKeys</span><span class="o">.</span><span class="n">GLOBAL_VARIABLES</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_encode_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_obs</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;encode_obs&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;build network to encode input feature. The desired output</span>
+<span class="sd">        consists of two parts: action_logits and value_preds</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">          input_obs: the (list, dict)[of] input tensor of state.</span>
+<span class="sd">          scope: the name of variable scope.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">variable_scope</span><span class="p">(</span><span class="n">name_or_scope</span><span class="o">=</span><span class="n">scope</span><span class="p">):</span>
+            <span class="c1"># override the function `build_graph` to implement the specific network manually</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;network_spec&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># must set action_dim to use default network</span>
+                <span class="n">action_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">is_multi_input</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_obs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+                    <span class="n">is_image_input</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                        <span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">input_obs</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="n">is_multi_input</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_obs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+                    <span class="n">is_image_input</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                        <span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">input_obs</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">is_multi_input</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">is_image_input</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_obs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span>
+
+                <span class="k">if</span> <span class="n">is_image_input</span> <span class="ow">and</span> <span class="n">is_multi_input</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;the default convolution network accepts only one input but </span><span class="si">{}</span><span class="s2"> given&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_obs</span><span class="p">)))</span>
+                <span class="k">if</span> <span class="n">is_image_input</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_multi_input</span><span class="p">:</span>
+                    <span class="n">obs_embedding</span> <span class="o">=</span> <span class="n">layer_utils</span><span class="o">.</span><span class="n">DefaultConvNetwork</span><span class="p">(</span>
+                        <span class="n">action_dim</span><span class="o">=</span><span class="n">action_dim</span><span class="p">,</span> <span class="n">need_v</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">input_obs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">obs_embedding</span> <span class="o">=</span> <span class="n">layer_utils</span><span class="o">.</span><span class="n">DefaultFCNetwork</span><span class="p">(</span>
+                        <span class="n">action_dim</span><span class="o">=</span><span class="n">action_dim</span><span class="p">,</span> <span class="n">need_v</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">input_obs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># build computation graph from configuration</span>
+                <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_obs</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="s2">&quot;list type is forbidden, key for each channel of input_&quot;</span> \
+                                                           <span class="s2">&quot;obs should be supplied to build graph from configuration&quot;</span> \
+                                                           <span class="s2">&quot;with multi-channel data&quot;</span>
+                <span class="n">obs_embedding</span> <span class="o">=</span> <span class="n">layer_utils</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span>
+                    <span class="n">inputs</span><span class="o">=</span><span class="n">input_obs</span><span class="p">,</span>
+                    <span class="n">network_spec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;network_spec&#39;</span><span class="p">],</span>
+                    <span class="n">is_training_ph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_training_ph</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">obs_embedding</span>
+
+    <span class="k">def</span> <span class="nf">_build_ph_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">PPOModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_build_ph_op</span><span class="p">(</span>
+            <span class="n">obs_space</span><span class="o">=</span><span class="n">obs_space</span><span class="p">,</span> <span class="n">action_space</span><span class="o">=</span><span class="n">action_space</span><span class="p">)</span>
+
+        <span class="c1"># add extra placeholder of advantage, return and logits for training</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">advantages_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_targets_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_preds_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logits_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">])</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

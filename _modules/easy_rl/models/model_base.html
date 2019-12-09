@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>easy_rl.models.model_base &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>easy_rl.models.model_base</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for easy_rl.models.model_base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2019 Alibaba Inc. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="kn">from</span> <span class="nn">easy_rl.utils</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="Model"><a class="viewcode-back" href="../../../models.html#easy_rl.models.Model">[docs]</a><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base model defines the main interface including inference and training.</span>
+<span class="sd">    Models that implements a specific algorithm should be derived from the base model.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        output_actions (tensor): the output action for inference.</span>
+<span class="sd">        extra_act_fetches (list): the extra output that need to be fetched along with output_actions.</span>
+<span class="sd">        extra_act_feed (dict): the extra input that need to be fed when inference.</span>
+<span class="sd">        loss (tensor): the result of loss function.</span>
+<span class="sd">        update_op (tensor): the operator to trigger optimization.</span>
+<span class="sd">        extra_learn_fetches (list): the extra output that need to be fetched along with the optimization.</span>
+<span class="sd">        extra_learn_feed (dict): the extra input that need to be fed when training.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="p">[],</span> <span class="n">act</span><span class="o">=</span><span class="p">[],</span> <span class="n">extra</span><span class="o">=</span><span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build_ph_op</span><span class="p">(</span><span class="n">obs_space</span><span class="o">=</span><span class="n">obs_space</span><span class="p">,</span> <span class="n">action_space</span><span class="o">=</span><span class="n">action_space</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build_graph</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_extra_summary_op</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">output_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the output actions&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_op</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extra_act_fetches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the extra fetches that needs to be run with `action_op`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extra_act_feed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the extra fetches that needs to be run with `action_op`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the loss&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_op</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">update_op</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the train_op to optimize params of the model&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_op</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">extra_learn_fetches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the extra fetches that needs to be run with `train_op`&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">learn_feed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return the placeholder (obs,action,reward,terminal,next_obs) that</span>
+<span class="sd">        needs to be fed when calling the `train_op`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;return all the variables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Model.preprocess_obs"><a class="viewcode-back" href="../../../models.html#easy_rl.models.Model.preprocess_obs">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">next_obs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Describe computation graph for preprocessing observations</span>
+<span class="sd">        where bandit models do not consider next observation.</span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            obs (obj): Tensor of current observation</span>
+<span class="sd">            next_obs (obj): Tensor of next observation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># currently, this is a dummy implementation.</span>
+        <span class="k">return</span> <span class="n">obs</span><span class="p">,</span> <span class="n">next_obs</span></div>
+
+    <span class="k">def</span> <span class="nf">_build_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct the whole model graph with input placeholders.</span>
+<span class="sd">        the required attributes including action_op, train_op, and other</span>
+<span class="sd">        necessary ops.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            scope: the name of variable scope</span>
+<span class="sd">            kwargs: extra params used to build the graph</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            In the context of reinforcement learning, there are mainly three</span>
+<span class="sd">            kinds of algorithms: value-based, policy gradients, and</span>
+<span class="sd">            actor-critic. We present their skeletons respectively. Overall,</span>
+<span class="sd">            EasyRL poses as least constraints as possible over users</span>
+<span class="sd">            (i.e., developers), so that they can describe their</span>
+<span class="sd">            algorithms in this function (as well as others called in this</span>
+<span class="sd">            function) with most freedom, say that naming the intermediate TF</span>
+<span class="sd">            tensors arbitrarily.</span>
+<span class="sd">             </span>
+<span class="sd">            (jones.wz) TO DO: provide the code snippets here.</span>
+<span class="sd">            Value-based:</span>
+<span class="sd">            Policy gradients:</span>
+<span class="sd">            Actor-critic:</span>
+<span class="sd">                pi_logits, state_value = self._encode_obs(obs_dict=self.obs_ph_dict,</span>
+<span class="sd">                                                       scope=&quot;encode_obs&quot;)</span>
+<span class="sd">                self.action_op = self._actions_distribution(pi_logits)</span>
+
+<span class="sd">                self.R = utils.discounted_cumulative_reward(terminal=self.terminal_ph_dict,</span>
+<span class="sd">                                                           reward=self.reward_ph_dict,</span>
+<span class="sd">                                                           discount=0.99,</span>
+<span class="sd">                                                           final_reward=state_value[-1],</span>
+<span class="sd">                                                           horizon=0)</span>
+
+<span class="sd">                self.loss_op = self._build_loss(logits=pi_logits,</span>
+<span class="sd">                                                actions=self.action_pl_dict,</span>
+<span class="sd">                                                R=self.R,</span>
+<span class="sd">                                                value=state_value[-1])</span>
+
+<span class="sd">                opt = tf.train.AdamOptimizer()</span>
+
+<span class="sd">                global_step = tf.train.get_or_create_global_step()</span>
+
+<span class="sd">                self.train_op = self._build_train(loss=self.loss_op,</span>
+<span class="sd">                                                  optimizer=opt,</span>
+<span class="sd">                                                  global_step=global_step)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_encode_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_obs</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;encode_obs&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;build network here and the output is a presentation of encoded</span>
+<span class="sd">        obs. It`s the main place to implement function approximator with</span>
+<span class="sd">        neural network.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">          input_obs: the (list, dict)[of] input tensor of observation.</span>
+<span class="sd">          scope: the name of variable scope</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            the encode of input feature.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            input = obs_dict[&quot;ob&quot;]</span>
+<span class="sd">            with tf.variable_scope(name_or_space=scope, reuse=tf.AUTO_REUSE):</span>
+<span class="sd">                obs_embedding = tf.layers.dense(input, 3, tf.nn.relu)</span>
+<span class="sd">                return obs_embedding</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_actions_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_embedding</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;choose different distribution functions according to the `action_distribution_type`</span>
+<span class="sd">        both deterministic and stochastic sampling strategy is needed. sample actions according</span>
+<span class="sd">        to the parameter `obs_embedding` and `deterministic`</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            obs_embedding : one (or nested) vector presentation of observation.</span>
+<span class="sd">            kwargs: extra parameters for exploration.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            output_action for inference.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># set `parameter_noise` to True and the epsilon-exploration will be forbidden</span>
+        <span class="n">params_noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parameter_noise&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_dist</span> <span class="o">=</span> <span class="n">action_utils</span><span class="o">.</span><span class="n">get_action_distribution</span><span class="p">(</span>
+            <span class="n">obs_embedding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_distribution_type</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deterministic_ph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps_ph</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;eps_ph&#39;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">params_noise</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dist</span><span class="o">.</span><span class="n">get_action</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_build_ph_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;initialize all the required placeholders for building model graph, including placeholders for inference and training</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            obs_space: the definition of observation space. nested structure is forbidden.</span>
+<span class="sd">                          Supported formats include list, dict, and singleton.</span>
+<span class="sd">            action_space: the definition of output action. Currently only single outputs is supported</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            obs_space = [{&quot;type&quot;:tf.int32, &quot;shape&quot;:[None, 10]}, {&quot;type&quot;:tf.float32, &quot;shape&quot;:[None, 20]}]</span>
+<span class="sd">            action_space = {&quot;type&quot;: &quot;Categorical&quot;, &quot;action_dim&quot; : 5}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obs_space</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;the_</span><span class="si">{}</span><span class="s2">_obs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">obs_space</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_ph</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">ph</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+                    <span class="n">shape</span><span class="o">=</span><span class="n">ph</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;the_</span><span class="si">{}</span><span class="s1">_next_obs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ph</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obs_space</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">name</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_obs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obs_space</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_ph</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;next_&#39;</span> <span class="o">+</span> <span class="n">name</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;next_</span><span class="si">{}</span><span class="s2">_obs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obs_space</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obs_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">obs_space</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">obs_space</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;obs&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_obs_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">obs_space</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">obs_space</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;next_obs&quot;</span><span class="p">)</span>
+
+        <span class="c1"># get action_distribution_type, the available value is one of (`Categorical`, `DiagGaussian`, `Identity`)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span> <span class="o">=</span> <span class="n">action_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_distribution_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;action_distribution_type&#39;</span><span class="p">,</span> <span class="p">{})</span> <span class="ow">or</span> <span class="n">action_space</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_distribution_type</span> <span class="o">==</span> <span class="s2">&quot;Categorical&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actions_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;actions&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actions_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_dim</span><span class="p">],</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;actions&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rewards_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rewards&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dones_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;dones&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deterministic_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;deterministic&quot;</span><span class="p">)</span>
+        <span class="c1"># create placeholder for indicate training stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_training_ph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder_with_default</span><span class="p">(</span>
+            <span class="kc">True</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;is_training&quot;</span><span class="p">)</span>
+        <span class="c1"># dummy ph to set summary flag in runtime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_summary_flag</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder_with_default</span><span class="p">(</span>
+            <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;set_summary_flag&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;implement specific loss function according to the optimization target</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            kwargs : params used to build the loss function.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            result of the loss function.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            logit = kwargs.get(&#39;logit&#39;)</span>
+<span class="sd">            action = kwargs.get(&#39;action&#39;)</span>
+<span class="sd">            R = kwargs.get(&#39;R&#39;)</span>
+<span class="sd">            value = kwargs.get(&#39;value&#39;)</span>
+
+<span class="sd">            log_p = tf.reduce_sum(tf.nn.log_softmax(logits) * tf.one_hot(actions, ), axis=-1)</span>
+
+<span class="sd">            loss_op = - log_p * (R - value)</span>
+
+<span class="sd">            return loss_op</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_build_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;add optimizer here and minimize the loss.</span>
+<span class="sd">        different learning rate strategies and gradients post-process can be applied here</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            kwargs : params used to build the training operation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            operation for training.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            loss = kwargs.get(&#39;loss&#39;)</span>
+<span class="sd">            lr = kwargs.get(&quot;input_lr&quot;, 0.001)</span>
+
+<span class="sd">            opt = kwargs.get(&#39;optimizer&#39;)</span>
+<span class="sd">            vars = kwargs.get(&#39;vars&#39;, None)</span>
+<span class="sd">            global_step = kwargs.get(&#39;global_step&#39;, None)</span>
+<span class="sd">            if global_step:</span>
+<span class="sd">                lr = tf.train.exponential_decay(lr, global_step, 20000, decay_rate=0.9)</span>
+<span class="sd">            train_op = opt.minimize(loss, global_step=global_step, var_list=vars)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<div class="viewcode-block" id="Model.add_extra_summary_op"><a class="viewcode-back" href="../../../models.html#easy_rl.models.Model.add_extra_summary_op">[docs]</a>    <span class="k">def</span> <span class="nf">add_extra_summary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;add extra summary op.</span>
+
+<span class="sd">        summary_ops add in this function will be exported when the `session.run` called in training stage.</span>
+<span class="sd">        Note: be careful to add summary_op, any input of summary_op missing will raise an error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extra_episode_return</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder_with_default</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+            <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;episode_return&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_ops</span><span class="p">[</span><span class="s2">&quot;extra&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;episode_return&quot;</span><span class="p">,</span>
+                <span class="n">tensor</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extra_episode_return</span><span class="p">))</span>
+        <span class="p">])</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

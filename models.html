@@ -1,0 +1,664 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Models Module Reference &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utils Module Reference" href="utils.html" />
+    <link rel="prev" title="Agents Module Reference" href="agents.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Models Module Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-easy_rl.models">easy_rl.models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Models Module Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="models-module-reference">
+<h1>Models Module Reference<a class="headerlink" href="#models-module-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-easy_rl.models">
+<span id="easy-rl-models"></span><h2>easy_rl.models<a class="headerlink" href="#module-easy_rl.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="easy_rl.models.Model">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">Model</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/model_base.html#Model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base model defines the main interface including inference and training.
+Models that implements a specific algorithm should be derived from the base model.</p>
+<dl class="attribute">
+<dt id="easy_rl.models.Model.output_actions">
+<code class="sig-name descname">output_actions</code><a class="headerlink" href="#easy_rl.models.Model.output_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>the output action for inference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.models.Model.extra_act_fetches">
+<code class="sig-name descname">extra_act_fetches</code><a class="headerlink" href="#easy_rl.models.Model.extra_act_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>the extra output that need to be fetched along with output_actions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.models.Model.extra_act_feed">
+<code class="sig-name descname">extra_act_feed</code><a class="headerlink" href="#easy_rl.models.Model.extra_act_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>the extra input that need to be fed when inference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.models.Model.loss">
+<code class="sig-name descname">loss</code><a class="headerlink" href="#easy_rl.models.Model.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>the result of loss function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.models.Model.update_op">
+<code class="sig-name descname">update_op</code><a class="headerlink" href="#easy_rl.models.Model.update_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>the operator to trigger optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.models.Model.extra_learn_fetches">
+<code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.Model.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>the extra output that need to be fetched along with the optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.models.Model.extra_learn_feed">
+<code class="sig-name descname">extra_learn_feed</code><a class="headerlink" href="#easy_rl.models.Model.extra_learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>the extra input that need to be fed when training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.Model.add_extra_summary_op">
+<code class="sig-name descname">add_extra_summary_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/model_base.html#Model.add_extra_summary_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.Model.add_extra_summary_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>add extra summary op.</p>
+<p>summary_ops add in this function will be exported when the <cite>session.run</cite> called in training stage.
+Note: be careful to add summary_op, any input of summary_op missing will raise an error.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">extra_act_feed</code></dt>
+<dd><p>return the extra fetches that needs to be run with <cite>action_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">extra_act_fetches</code></dt>
+<dd><p>return the extra fetches that needs to be run with <cite>action_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code></dt>
+<dd><p>return the extra fetches that needs to be run with <cite>train_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.Model.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.Model.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the placeholder (obs,action,reward,terminal,next_obs) that
+needs to be fed when calling the <cite>train_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">loss</code></dt>
+<dd><p>return the loss</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">output_actions</code></dt>
+<dd><p>return the output actions</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.Model.preprocess_obs">
+<code class="sig-name descname">preprocess_obs</code><span class="sig-paren">(</span><em class="sig-param">obs</em>, <em class="sig-param">next_obs=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/model_base.html#Model.preprocess_obs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.Model.preprocess_obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describe computation graph for preprocessing observations
+where bandit models do not consider next observation.
+:param obs: Tensor of current observation
+:type obs: obj
+:param next_obs: Tensor of next observation
+:type next_obs: obj</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">update_op</code></dt>
+<dd><p>return the train_op to optimize params of the model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.Model.variables">
+<em class="property">property </em><code class="sig-name descname">variables</code><a class="headerlink" href="#easy_rl.models.Model.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>return all the variables</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.PGModel">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">PGModel</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='pg_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/policy_gradient.html#PGModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.PGModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vanilla Policy Gradient agent as described by [Sutton et al. (1999)]
+(<a class="reference external" href="https://papers.nips.cc/paper/1713-policy-gradient-methods-for-reinforcement-learning-with-function-approximation.pdf">https://papers.nips.cc/paper/1713-policy-gradient-methods-for-reinforcement-learning-with-function-approximation.pdf</a>)</p>
+<dl class="method">
+<dt id="easy_rl.models.PGModel.extra_act_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_act_fetches</code><a class="headerlink" href="#easy_rl.models.PGModel.extra_act_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the sample_action with state_value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.PGModel.extra_learn_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.PGModel.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the additional fetches when training</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.PGModel.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.PGModel.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dict of placeholder of obs, actions, advantages and value_targets.
+the inputs will be used to optimize model with policy gradient</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.PPOModel">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">PPOModel</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='ppo_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/ppo_model.html#PPOModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.PPOModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proximal Policy Optimization agent ([Schulman et al., 2017]
+(<a class="reference external" href="https://openai-public.s3-us-west-2.amazonaws.com/blog/2017-07/ppo/ppo-arxiv.pdf">https://openai-public.s3-us-west-2.amazonaws.com/blog/2017-07/ppo/ppo-arxiv.pdf</a>)</p>
+<dl class="method">
+<dt id="easy_rl.models.PPOModel.extra_act_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_act_fetches</code><a class="headerlink" href="#easy_rl.models.PPOModel.extra_act_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the sample_action with action logits and state_value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.PPOModel.extra_learn_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.PPOModel.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the additional fetches when training</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.PPOModel.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.PPOModel.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dict of placeholder of action logits and state_value.
+the inputs will be used to calculate likelihood ratio between old and new policy</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.DQNModel">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">DQNModel</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='dqn_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/dqn.html#DQNModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.DQNModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of Deep Q-Learning with all components of <cite>Rainbow: Combining Improvements in Deep Reinforcement Learning</cite>
+[Matteo Hessel et al., 2018](<a class="reference external" href="https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/viewFile/17204/16680">https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/viewFile/17204/16680</a>)</p>
+<dl class="method">
+<dt id="easy_rl.models.DQNModel.all_variables">
+<em class="property">property </em><code class="sig-name descname">all_variables</code><a class="headerlink" href="#easy_rl.models.DQNModel.all_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>return all variables of model object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DQNModel.extra_act_feed">
+<em class="property">property </em><code class="sig-name descname">extra_act_feed</code><a class="headerlink" href="#easy_rl.models.DQNModel.extra_act_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the placeholder of dict for acting input:
+- eps: epsilon for exploration, to what probability the agent take a uniform-random action.
+- noise_kl_threshold: the bound of params_noise.
+- reset: reset the perturbed params with the latest scale of params_noise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DQNModel.extra_act_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_act_fetches</code><a class="headerlink" href="#easy_rl.models.DQNModel.extra_act_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the extra fetches that needs to be run with <cite>action_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DQNModel.extra_learn_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.DQNModel.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the additional fetches when training</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DQNModel.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.DQNModel.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the placeholder (obs,action,reward,terminal,next_obs) that
+needs to be fed when calling the <cite>train_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DQNModel.perturb_and_update">
+<em class="property">property </em><code class="sig-name descname">perturb_and_update</code><a class="headerlink" href="#easy_rl.models.DQNModel.perturb_and_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>return operation for reset the parameters of perturbed network and update noise scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DQNModel.sync_target">
+<em class="property">property </em><code class="sig-name descname">sync_target</code><a class="headerlink" href="#easy_rl.models.DQNModel.sync_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>return operation for synchronizing the weights between source model and target model</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.DDPGModel">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">DDPGModel</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='ddpg_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/ddpg.html#DDPGModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.DDPGModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deep Deterministic Policy Gradient agent.
+The piece de resistance of deep reinforcement learning as described by [Lillicrap, et al. (2015)]
+(<a class="reference external" href="https://arxiv.org/pdf/1509.02971v2.pdf">https://arxiv.org/pdf/1509.02971v2.pdf</a>).</p>
+<p>DDPG is a policy gradient algorithm that uses a stochastic behavior policy for good exploration but
+estimates a deterministic target policy</p>
+<dl class="method">
+<dt id="easy_rl.models.DDPGModel.extra_act_feed">
+<em class="property">property </em><code class="sig-name descname">extra_act_feed</code><a class="headerlink" href="#easy_rl.models.DDPGModel.extra_act_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the placeholder of dict for acting input:
+- params_noise_threshold: the bound of params_noise.
+- reset: reset the perturbed params with the latest scale of params_noise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DDPGModel.extra_act_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_act_fetches</code><a class="headerlink" href="#easy_rl.models.DDPGModel.extra_act_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the extra fetches that needs to be run with <cite>action_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DDPGModel.extra_learn_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.DDPGModel.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return loss</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DDPGModel.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.DDPGModel.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the placeholder of feed_dict for training input:
+- obs: observation obtained by agent.
+- action: action selected by agent.
+- target_obs: the next n step observation, mostly n=1.
+- reward: reward signal.
+- terminal: terminal signal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DDPGModel.perturbed_actions">
+<em class="property">property </em><code class="sig-name descname">perturbed_actions</code><a class="headerlink" href="#easy_rl.models.DDPGModel.perturbed_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>action with parameter space noise</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.DDPGModel.sync_target">
+<em class="property">property </em><code class="sig-name descname">sync_target</code><a class="headerlink" href="#easy_rl.models.DDPGModel.sync_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>return operation for synchronizing the weights between source model and target model</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.VTraceModel">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">VTraceModel</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='vtrace_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/v_trace.html#VTraceModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.VTraceModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation the v-trace algorithm for Importance Weighted Actor-Learner Architecture
+[Lasse Espeholt et al., 2017](<a class="reference external" href="https://arxiv.org/abs/1802.01561">https://arxiv.org/abs/1802.01561</a>)</p>
+<dl class="method">
+<dt id="easy_rl.models.VTraceModel.extra_act_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_act_fetches</code><a class="headerlink" href="#easy_rl.models.VTraceModel.extra_act_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the sample_action with action logits and state_value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.VTraceModel.extra_learn_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.VTraceModel.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return extra fetches after call agent.learn</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.VTraceModel.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.VTraceModel.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dict of placeholder of action logits and state_value.
+the input value will be used to calculate v-trace actor critic targets.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.VTraceModel.v_trace_estimation">
+<code class="sig-name descname">v_trace_estimation</code><span class="sig-paren">(</span><em class="sig-param">value_preds</em>, <em class="sig-param">actions</em>, <em class="sig-param">dones</em>, <em class="sig-param">rewards</em>, <em class="sig-param">logits</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/v_trace.html#VTraceModel.v_trace_estimation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.VTraceModel.v_trace_estimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates V-trace actor critic targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value_preds</strong> – state_value estimated by current policy.
+Note that one more state_value is appended to value_preds.</p></li>
+<li><p><strong>actions</strong> – action sampled by behaviour policy.</p></li>
+<li><p><strong>dones</strong> – terminal signal.</p></li>
+</ul>
+</dd>
+</dl>
+<p>:param rewards:: immediate reward return by env.:
+:param logits: value of logits given by behaviour policy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>remedied value-target and state-action dependent estimator of advantage</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.EvolutionStrategy">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">EvolutionStrategy</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='es_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/evolution_strategy.html#EvolutionStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.EvolutionStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="easy_rl.models.EvolutionStrategy.all_variables">
+<em class="property">property </em><code class="sig-name descname">all_variables</code><a class="headerlink" href="#easy_rl.models.EvolutionStrategy.all_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>return all variables of model object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.EvolutionStrategy.extra_learn_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.EvolutionStrategy.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the extra fetches when training.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.EvolutionStrategy.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.EvolutionStrategy.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dict of placeholder for training.
+the input value will be used to optimize model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.EvolutionStrategy.perturbation_feed">
+<em class="property">property </em><code class="sig-name descname">perturbation_feed</code><a class="headerlink" href="#easy_rl.models.EvolutionStrategy.perturbation_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the placeholder of perturbation seed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.EvolutionStrategy.reset_perturbed_parameters">
+<code class="sig-name descname">reset_perturbed_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/evolution_strategy.html#EvolutionStrategy.reset_perturbed_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.EvolutionStrategy.reset_perturbed_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a candidate perturbation and reset the perturbed model with latest</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.MarwilModel">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">MarwilModel</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='marwil_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/marwil.html#MarwilModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.MarwilModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>implemention of Exponentially Weighted Imitation Learning for
+Batched Historical Data[Qing Wang et al., 2018](<a class="reference external" href="https://papers.nips.cc/paper/">https://papers.nips.cc/paper/</a>
+7866-exponentially-weighted-imitation-learning-for-batched-historical-data.pdf)</p>
+<dl class="method">
+<dt id="easy_rl.models.MarwilModel.extra_act_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_act_fetches</code><a class="headerlink" href="#easy_rl.models.MarwilModel.extra_act_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the sample_action with action logits and state_value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.MarwilModel.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.MarwilModel.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dict of placeholder for training.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.models.LinUCBModel">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.models.</code><code class="sig-name descname">LinUCBModel</code><span class="sig-paren">(</span><em class="sig-param">obs_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">scope='linucb_model'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/linucb.html#LinUCBModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.LinUCBModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of LinUCB algorithm</p>
+<dl class="method">
+<dt id="easy_rl.models.LinUCBModel.extra_learn_fetches">
+<em class="property">property </em><code class="sig-name descname">extra_learn_fetches</code><a class="headerlink" href="#easy_rl.models.LinUCBModel.extra_learn_fetches" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the additional fetches when training</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.LinUCBModel.learn_feed">
+<em class="property">property </em><code class="sig-name descname">learn_feed</code><a class="headerlink" href="#easy_rl.models.LinUCBModel.learn_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the placeholder (obs,action,reward,terminal,next_obs) that
+needs to be fed when calling the <cite>train_op</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.models.LinUCBModel.preprocess">
+<code class="sig-name descname">preprocess</code><span class="sig-paren">(</span><em class="sig-param">obs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/models/linucb.html#LinUCBModel.preprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.models.LinUCBModel.preprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Augment a constant one component.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utils Module Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="agents.html" class="btn btn-neutral float-left" title="Agents Module Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

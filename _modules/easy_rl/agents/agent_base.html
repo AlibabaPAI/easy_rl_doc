@@ -1,0 +1,588 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>easy_rl.agents.agent_base &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>easy_rl.agents.agent_base</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for easy_rl.agents.agent_base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2019 Alibaba Inc. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">easy_rl.agents.executor</span> <span class="k">import</span> <span class="n">Executor</span>
+<span class="kn">from</span> <span class="nn">easy_rl.agents.distributed_handler</span> <span class="k">import</span> <span class="n">DistributedHandler</span>
+<span class="kn">from</span> <span class="nn">easy_rl.utils.schedules</span> <span class="k">import</span> <span class="n">LinearSchedule</span><span class="p">,</span> <span class="n">ConstantSchedule</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="AgentBase"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.AgentBase">[docs]</a><span class="k">class</span> <span class="nc">AgentBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;All EasyRL agent classes extend this base class</span>
+
+<span class="sd">    Agent objects expose `act()` method to interact with Environment objects</span>
+<span class="sd">    and `learn()` method to update the underlying `Model` object(s).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        executor (obj): Handle the runtime.</span>
+<span class="sd">        model (obj): Provide the computation graph.</span>
+<span class="sd">        distributed_handler (obj): Provide the context for distributed computing.</span>
+<span class="sd">        ready_to_send (bool): Whether the agent is ready to send collected experience.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">observation_space</span><span class="p">,</span>
+                 <span class="n">action_space</span><span class="p">,</span>
+                 <span class="n">agent_config</span><span class="p">,</span>
+                 <span class="n">model_config</span><span class="p">,</span>
+                 <span class="n">distributed_spec</span><span class="p">,</span>
+                 <span class="n">custom_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">checkpoint_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                 <span class="n">export_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct an EasyRL AgentBase object</span>
+
+<span class="sd">        Specification of subclasses can be expressed in `_init()` method.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            observation_space (gym.spaces.Space): specify the shapes and types of observed states.</span>
+<span class="sd">            action_space (gym.spaces.Space): specify the shapes and types of actions.</span>
+<span class="sd">            agent_config (dict): specify the agent.</span>
+<span class="sd">            model_config (dict): specify the underlying model object(s).</span>
+<span class="sd">            distributed_spec (dict): specify the distributed computation.</span>
+<span class="sd">            custom_model (cls): user defined model(should be inherited from default model).</span>
+<span class="sd">            checkpoint_dir (str): specify the checkpoint directory of TF session.</span>
+<span class="sd">            export_dir (str): specify the default path to export SavedModel.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="n">Executor</span><span class="p">(</span><span class="n">observation_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">agent_config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model_config</span> <span class="o">=</span> <span class="n">model_config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">distributed_handler</span> <span class="o">=</span> <span class="n">DistributedHandler</span><span class="p">(</span><span class="n">distributed_spec</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_export_dir</span> <span class="o">=</span> <span class="n">export_dir</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">(</span><span class="n">model_config</span><span class="p">,</span> <span class="n">checkpoint_dir</span><span class="p">,</span> <span class="n">custom_model</span><span class="p">)</span>
+
+        <span class="c1"># control the frequency of reset perturbation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_episode_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># control the frequency of sending transitions to the buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_act_count</span><span class="p">()</span>
+
+        <span class="c1"># record the number of samples received by memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_receive_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_receive_record</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_batch_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sample_batch_size&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ready_to_send</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># control the frequency of receiving transitions from the buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ready_to_receive</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># sub batch_size for training</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sub_train_batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sub_train_batch&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># number of epoch to use the given batch_data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_train_epochs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;train_epochs&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_learn_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sync_target_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># \epsilon value which decays along a given interval.</span>
+        <span class="c1"># deterministic policy uses \epsilon for \epsilon-greedy exploration</span>
+        <span class="c1"># (jones.wz) TO DO: handle the cases of stochastic policy</span>
+        <span class="n">constant_eps</span> <span class="o">=</span> <span class="n">agent_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constant_eps&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">constant_eps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_exploration</span> <span class="o">=</span> <span class="n">ConstantSchedule</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">constant_eps</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_exploration</span> <span class="o">=</span> <span class="n">LinearSchedule</span><span class="p">(</span>
+                <span class="n">schedule_timesteps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span>
+                    <span class="n">agent_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;exploration_timesteps&quot;</span><span class="p">,</span> <span class="mf">4e5</span><span class="p">)),</span>
+                <span class="n">initial_val</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">final_val</span><span class="o">=</span><span class="n">agent_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;final_eps&quot;</span><span class="p">,</span> <span class="o">.</span><span class="mi">02</span><span class="p">))</span>
+
+        <span class="c1"># kl-threshold used in parameters space noise which decays along a given interval.</span>
+        <span class="c1"># (huxu.hx) TO DO: need to create a general strategy handle eps and kl?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_noise_kl_threshold</span> <span class="o">=</span> <span class="n">LinearSchedule</span><span class="p">(</span>
+            <span class="n">schedule_timesteps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">agent_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;noise_kl_episodes&quot;</span><span class="p">,</span> <span class="mf">4e2</span><span class="p">)),</span>
+            <span class="n">initial_val</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">final_val</span><span class="o">=</span><span class="n">agent_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;final_eps&quot;</span><span class="p">,</span> <span class="o">.</span><span class="mi">0001</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_config</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">,</span> <span class="n">custom_model</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Build the computation graph and setup the session according to the specific sub-class</span>
+
+<span class="sd">        Instantiate a specific model class to build the corresponding computation graph.</span>
+<span class="sd">        e.g.,:</span>
+<span class="sd">            def _init(self, model_config, ckpt_dir):</span>
+<span class="sd">                with self.distributed_handler.device:</span>
+<span class="sd">                    self.model = _default_model_class(self.executor.ob_plh_spec,</span>
+<span class="sd">                                                      self.executor.action_plh_spec,</span>
+<span class="sd">                                                      model_config)</span>
+<span class="sd">                    # build queues and related ops for communication</span>
+<span class="sd">                self.executor.setup()</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            model_config (dict): specify the model to be instantiated.</span>
+<span class="sd">            ckpt_dir (str): specify the checkpoint directory of TF session.</span>
+<span class="sd">            custom_model: (cls): user defined model (should be inherited from default model).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">behavior_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span>
+
+<div class="viewcode-block" id="AgentBase.act"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.AgentBase.act">[docs]</a>    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">obs</span><span class="p">,</span>
+            <span class="n">deterministic</span><span class="p">,</span>
+            <span class="n">use_perturbed_action</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="nb">eval</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Predict actions given input observations.</span>
+
+<span class="sd">        No need for subclasses to override this method.</span>
+<span class="sd">        Specification can be achieved by specifying different model.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            obs (np.ndarray): the input observations.</span>
+<span class="sd">            deterministic (bool): if false, exploration/sampling are conducted.</span>
+<span class="sd">            use_perturbed_action (bool): set `true` to use perturbed action.</span>
+<span class="sd">            eval (bool): act in evaluation, act_count increase will be ignored.</span>
+<span class="sd">            kwargs (dict): extra model-specific data needed for the act operation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            actions (np.ndarray): predicted actions as a numpy array.</span>
+<span class="sd">            extra_results (dict): extra outputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">use_perturbed_action</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="p">,</span> <span class="s2">&quot;perturbed_actions&quot;</span>
+            <span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> model has no atrribute for perturbed_actions&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="p">))</span>
+            <span class="n">fetches</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="o">.</span><span class="n">perturbed_actions</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="o">.</span><span class="n">extra_act_fetches</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fetches</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="o">.</span><span class="n">output_actions</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="o">.</span><span class="n">extra_act_fetches</span>
+            <span class="p">]</span>
+
+        <span class="n">fetches</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;summary_flag&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_set_summary_flag</span><span class="p">})</span>
+
+        <span class="n">feed_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">feed_observations</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">,</span> <span class="n">obs</span><span class="p">)</span>
+        <span class="n">feed_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_behavior_model</span><span class="o">.</span><span class="n">deterministic_ph</span><span class="p">]</span> <span class="o">=</span> <span class="n">deterministic</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exploration</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_act_count</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_act_count</span> <span class="o">%</span> <span class="mi">10000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;act_count: </span><span class="si">{}</span><span class="s2">, eps: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_act_count</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">]))</span>
+
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;noise_kl_threshold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_noise_kl_threshold</span><span class="o">.</span><span class="n">value</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_episode_count</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_episode_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;perturbation_frequency&quot;</span><span class="p">,</span>
+                                                 <span class="mi">50</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;reset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">extra_feed_dcit</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">v</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">extra_act_feed</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span>
+        <span class="p">}</span>
+        <span class="n">feed_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_feed_dcit</span><span class="p">)</span>
+        <span class="n">feed_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_set_summary_flag</span><span class="p">:</span> <span class="s2">&quot;act&quot;</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">do_summary</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">actions</span><span class="p">,</span> <span class="n">extra_results</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fetches</span><span class="p">,</span> <span class="n">feed_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">do_summary</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># restore the action shape for Box type action space, as they are flattened</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">restore_action_shape_if_needed</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+
+        <span class="c1"># count for the times of taking an action, so that we know when to send collected experience</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">eval</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_act_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_act_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_act_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_batch_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ready_to_send</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">actions</span><span class="p">,</span> <span class="n">extra_results</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ready_to_send</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ready_to_send</span>
+
+<div class="viewcode-block" id="AgentBase.send_experience"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.AgentBase.send_experience">[docs]</a>    <span class="k">def</span> <span class="nf">send_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">new_obs</span><span class="p">,</span> <span class="n">done_masks</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send the experience to the buffer</span>
+
+<span class="sd">        Either add the experience to the (replay) beffer object under the single machine setting,</span>
+<span class="sd">        or send the exeprience to the memory hosts under the distributed setting.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            obs (obj): the input overvations.</span>
+<span class="sd">            actions (obj): the actions behaved in the interactions.</span>
+<span class="sd">            kwargs (dict): extra model-specific data needed for the update operation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ready_to_receive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ready_to_receive</span>
+
+<div class="viewcode-block" id="AgentBase.receive_experience"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.AgentBase.receive_experience">[docs]</a>    <span class="k">def</span> <span class="nf">receive_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Recieve the experience from the buffer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="AgentBase.learn"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.AgentBase.learn">[docs]</a>    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_data</span><span class="p">,</span> <span class="n">is_chief</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">need_recovery</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the model(s) with respect to the input data</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            batch_data (dict): contains the fields for updating models.</span>
+<span class="sd">            need_recovery (bool): whether to recovery multi-channel obs from flattened array.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            extra_results (dict): extra outputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fetches</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">update_op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">extra_learn_fetches</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s2">&quot;summary_flag&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_set_summary_flag</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">batch_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;next_obs&quot;</span><span class="p">]:</span>
+                <span class="n">batch_data_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="k">break</span>
+        <span class="n">train_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sub_train_batch</span> <span class="ow">or</span> <span class="n">batch_data_length</span><span class="p">,</span>
+                         <span class="n">batch_data_length</span><span class="p">)</span>
+        <span class="n">extra_results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_train_epochs</span><span class="p">):</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># number of last samples with less than train_size will be discarded</span>
+            <span class="k">while</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">batch_data_length</span> <span class="o">-</span> <span class="n">train_size</span><span class="p">):</span>
+                <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">v</span><span class="p">:</span> <span class="n">batch_data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span> <span class="o">+</span> <span class="n">train_size</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">learn_feed</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;next_obs&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;next_obs&quot;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">learn_feed</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">feed_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">feed_observations</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">learn_feed</span><span class="p">[</span><span class="n">field</span><span class="p">],</span>
+                                <span class="n">batch_data</span><span class="p">[</span><span class="n">field</span><span class="p">],</span>
+                                <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+                                <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">))</span>
+                <span class="n">feed_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_set_summary_flag</span><span class="p">:</span> <span class="s2">&quot;train&quot;</span><span class="p">})</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">do_summary</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">extra_result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fetches</span><span class="p">,</span> <span class="n">feed_dict</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">do_summary</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">extra_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">extra_result</span><span class="p">)</span>
+
+                <span class="n">offset</span> <span class="o">+=</span> <span class="n">train_size</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extra_results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">extra_results</span> <span class="o">=</span> <span class="n">extra_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_learn_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;sync_target_op&quot;</span>
+        <span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_learn_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;sync_target_frequency&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">is_chief</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sync_target_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sync_target_count</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="s2">&quot;sync_logging_freq&quot;</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;learn_count: </span><span class="si">{}</span><span class="s2">, sync_target_count: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_learn_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sync_target_count</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">sync_target_op</span><span class="p">,</span> <span class="p">{})</span>
+
+        <span class="k">return</span> <span class="n">extra_results</span></div>
+
+    <span class="k">def</span> <span class="nf">add_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_episode</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_episode_count</span> <span class="o">+=</span> <span class="n">num_episode</span>
+
+    <span class="k">def</span> <span class="nf">_init_act_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_act_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="AgentBase.add_extra_summary"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.AgentBase.add_extra_summary">[docs]</a>    <span class="k">def</span> <span class="nf">add_extra_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;add any data which is out of computation graph into summary events.</span>
+<span class="sd">        the associated summary op needs to be defined in `model.add_extra_summary_op` in advance.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            feed_dict (dict): pair of summary_op and data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fetches</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;summary_flag&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_set_summary_flag</span><span class="p">}]</span>
+        <span class="n">feed_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_set_summary_flag</span><span class="p">:</span> <span class="s2">&quot;extra&quot;</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">do_summary</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fetches</span><span class="o">=</span><span class="n">fetches</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">do_summary</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">export_saved_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+
+        <span class="n">export_dir</span> <span class="o">=</span> <span class="n">export_dir</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_dir</span>
+
+        <span class="k">if</span> <span class="n">export_dir</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">unsafe_unfinalize</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">obs_ph</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;obs_ph</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">ts</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;obs_ph&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">obs_ph</span><span class="p">}</span>
+            <span class="n">inputs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="s2">&quot;deterministic_ph&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">deterministic_ph</span>
+            <span class="p">})</span>
+            <span class="n">inputs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">extra_act_feed</span><span class="p">)</span>
+
+            <span class="n">outputs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">output_actions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">output_actions</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="p">,</span> <span class="s2">&quot;perturbed_actions&quot;</span><span class="p">):</span>
+                <span class="n">outputs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                    <span class="s2">&quot;perturbed_actions&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">perturbed_actions</span>
+                <span class="p">})</span>
+            <span class="n">outputs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="n">name</span><span class="p">:</span> <span class="n">ts</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior_model</span><span class="o">.</span><span class="n">extra_act_fetches</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">no_op</span><span class="p">()))</span>
+            <span class="p">})</span>
+
+            <span class="n">signature_def</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">signature_def_utils</span><span class="o">.</span><span class="n">predict_signature_def</span><span class="p">(</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
+
+            <span class="n">builder</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">SavedModelBuilder</span><span class="p">(</span><span class="n">export_dir</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">get_session</span><span class="p">(</span><span class="n">sess</span><span class="p">):</span>
+                <span class="n">session</span> <span class="o">=</span> <span class="n">sess</span>
+                <span class="k">while</span> <span class="nb">type</span><span class="p">(</span><span class="n">session</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s1">&#39;Session&#39;</span><span class="p">:</span>
+                    <span class="n">session</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">_sess</span>
+                <span class="k">return</span> <span class="n">session</span>
+
+            <span class="n">builder</span><span class="o">.</span><span class="n">add_meta_graph_and_variables</span><span class="p">(</span>
+                <span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">session</span><span class="p">),</span>
+                <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">tag_constants</span><span class="o">.</span><span class="n">SERVING</span><span class="p">],</span>
+                <span class="n">signature_def_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;predict_results&quot;</span><span class="p">:</span> <span class="n">signature_def</span><span class="p">},</span>
+                <span class="n">clear_devices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">builder</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">GFile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">export_dir</span><span class="p">,</span> <span class="s2">&quot;dump_finish&quot;</span><span class="p">),</span>
+                                <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fw</span><span class="p">:</span>
+                <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;dump_finish @</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

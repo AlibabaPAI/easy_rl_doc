@@ -1,0 +1,725 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Agents Module Reference &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Models Module Reference" href="models.html" />
+    <link rel="prev" title="Environment-Related Interfaces" href="envs.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Agents Module Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-easy_rl.agents">easy_rl.agents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Agents Module Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/agents.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="agents-module-reference">
+<h1>Agents Module Reference<a class="headerlink" href="#agents-module-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-easy_rl.agents">
+<span id="easy-rl-agents"></span><h2>easy_rl.agents<a class="headerlink" href="#module-easy_rl.agents" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="easy_rl.agents.AgentBase">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">AgentBase</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent_base.html#AgentBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.AgentBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>All EasyRL agent classes extend this base class</p>
+<p>Agent objects expose <cite>act()</cite> method to interact with Environment objects
+and <cite>learn()</cite> method to update the underlying <cite>Model</cite> object(s).</p>
+<dl class="attribute">
+<dt id="easy_rl.agents.AgentBase.executor">
+<code class="sig-name descname">executor</code><a class="headerlink" href="#easy_rl.agents.AgentBase.executor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle the runtime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.agents.AgentBase.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#easy_rl.agents.AgentBase.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide the computation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.agents.AgentBase.distributed_handler">
+<code class="sig-name descname">distributed_handler</code><a class="headerlink" href="#easy_rl.agents.AgentBase.distributed_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide the context for distributed computing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.agents.AgentBase.ready_to_send">
+<code class="sig-name descname">ready_to_send</code><a class="headerlink" href="#easy_rl.agents.AgentBase.ready_to_send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the agent is ready to send collected experience.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.AgentBase.act">
+<code class="sig-name descname">act</code><span class="sig-paren">(</span><em class="sig-param">obs</em>, <em class="sig-param">deterministic</em>, <em class="sig-param">use_perturbed_action=False</em>, <em class="sig-param">eval=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent_base.html#AgentBase.act"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.AgentBase.act" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict actions given input observations.</p>
+<p>No need for subclasses to override this method.
+Specification can be achieved by specifying different model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>np.ndarray</em>) – the input observations.</p></li>
+<li><p><strong>deterministic</strong> (<em>bool</em>) – if false, exploration/sampling are conducted.</p></li>
+<li><p><strong>use_perturbed_action</strong> (<em>bool</em>) – set <cite>true</cite> to use perturbed action.</p></li>
+<li><p><strong>eval</strong> (<em>bool</em>) – act in evaluation, act_count increase will be ignored.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – extra model-specific data needed for the act operation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>predicted actions as a numpy array.
+extra_results (dict): extra outputs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>actions (np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.AgentBase.add_extra_summary">
+<code class="sig-name descname">add_extra_summary</code><span class="sig-paren">(</span><em class="sig-param">feed_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent_base.html#AgentBase.add_extra_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.AgentBase.add_extra_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>add any data which is out of computation graph into summary events.
+the associated summary op needs to be defined in <cite>model.add_extra_summary_op</cite> in advance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feed_dict</strong> (<em>dict</em>) – pair of summary_op and data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.AgentBase.learn">
+<code class="sig-name descname">learn</code><span class="sig-paren">(</span><em class="sig-param">batch_data</em>, <em class="sig-param">is_chief=True</em>, <em class="sig-param">need_recovery=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent_base.html#AgentBase.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.AgentBase.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the model(s) with respect to the input data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_data</strong> (<em>dict</em>) – contains the fields for updating models.</p></li>
+<li><p><strong>need_recovery</strong> (<em>bool</em>) – whether to recovery multi-channel obs from flattened array.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>extra outputs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>extra_results (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.AgentBase.receive_experience">
+<code class="sig-name descname">receive_experience</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent_base.html#AgentBase.receive_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.AgentBase.receive_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recieve the experience from the buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.AgentBase.send_experience">
+<code class="sig-name descname">send_experience</code><span class="sig-paren">(</span><em class="sig-param">obs</em>, <em class="sig-param">actions</em>, <em class="sig-param">rewards</em>, <em class="sig-param">new_obs</em>, <em class="sig-param">done_masks</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent_base.html#AgentBase.send_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.AgentBase.send_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the experience to the buffer</p>
+<p>Either add the experience to the (replay) beffer object under the single machine setting,
+or send the exeprience to the memory hosts under the distributed setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>obj</em>) – the input overvations.</p></li>
+<li><p><strong>actions</strong> (<em>obj</em>) – the actions behaved in the interactions.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – extra model-specific data needed for the update operation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.Agent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">Agent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent.html#Agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.Agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>(single-machine) Agent</p>
+<p>Different behaviors (in RL jargon) can be made by specifying different kinds of model.</p>
+<dl class="attribute">
+<dt id="easy_rl.agents.Agent.executor">
+<code class="sig-name descname">executor</code><a class="headerlink" href="#easy_rl.agents.Agent.executor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle the runtime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.agents.Agent.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#easy_rl.agents.Agent.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide the computation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.agents.Agent.distributed_handler">
+<code class="sig-name descname">distributed_handler</code><a class="headerlink" href="#easy_rl.agents.Agent.distributed_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide the context for distributed computing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="easy_rl.agents.Agent._buffer">
+<code class="sig-name descname">_buffer</code><a class="headerlink" href="#easy_rl.agents.Agent._buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store the collected experience.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.Agent.receive_experience">
+<code class="sig-name descname">receive_experience</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent.html#Agent.receive_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.Agent.receive_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acquire training examples from the buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>contains fields of data for making an update.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>batch_data (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.Agent.send_experience">
+<code class="sig-name descname">send_experience</code><span class="sig-paren">(</span><em class="sig-param">obs</em>, <em class="sig-param">actions</em>, <em class="sig-param">rewards</em>, <em class="sig-param">dones</em>, <em class="sig-param">next_obs=None</em>, <em class="sig-param">weights=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent.html#Agent.send_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.Agent.send_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store experience in the buffer.</p>
+<p>Postprocess the collected transitions and store them in the buffer.
+<cite>obs</cite>, <cite>actions</cite>, <cite>rewards</cite>, <cite>next_obs</cite>, <cite>dones</cite> are basic fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>list</em>) – the observed states.</p></li>
+<li><p><strong>actions</strong> (<em>list</em>) – the actions taken in response to the states.</p></li>
+<li><p><strong>rewards</strong> (<em>list</em>) – collected from the environment.</p></li>
+<li><p><strong>next_obs</strong> (<em>list</em>) – the obsered next states.</p></li>
+<li><p><strong>dones</strong> (<em>list</em>) – bool flags indicating whether the episode finishes.</p></li>
+<li><p><strong>weights</strong> (<em>list</em>) – the initializd priorities of samples.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – contains the additional algorithm-specific field(s).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.Agent.update_priorities">
+<code class="sig-name descname">update_priorities</code><span class="sig-paren">(</span><em class="sig-param">indexes</em>, <em class="sig-param">td_error</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/agent.html#Agent.update_priorities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.Agent.update_priorities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the priorities of the sampled data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>td_error</strong> (<em>np.ndarray</em>) – the computed TD errors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.ActorLearnerAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">ActorLearnerAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/actor_learner_agent.html#ActorLearnerAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ActorLearnerAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actor-learner architecture.</p>
+<p>We regard some workers as learners and some as actors.
+Meanwhile, some ps do the job of parameter servers and some ps work for caching data.
+We declare model parameters on both the local host and the parameter servers.
+Learner push changes of model parameters to the servers.
+Actors pull the latest model parameters from the servers.</p>
+<dl class="method">
+<dt id="easy_rl.agents.ActorLearnerAgent.join">
+<code class="sig-name descname">join</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/actor_learner_agent.html#ActorLearnerAgent.join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ActorLearnerAgent.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <cite>server.join()</cite> if the agent object serves as a parameter server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ActorLearnerAgent.should_stop">
+<code class="sig-name descname">should_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/actor_learner_agent.html#ActorLearnerAgent.should_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ActorLearnerAgent.should_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Judge whether the agent should stop.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ActorLearnerAgent.sync_vars">
+<code class="sig-name descname">sync_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/actor_learner_agent.html#ActorLearnerAgent.sync_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ActorLearnerAgent.sync_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sync with the latest vars</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.AsyncAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">AsyncAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/async_agent.html#AsyncAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.AsyncAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actors and learners  exchange data and model parameters in a asynchronous way.</p>
+<p>E.g., ApeX, Impala, A3C (each worker functions as both actor and learner)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.ApexAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">ApexAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/apex_agent.html#ApexAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ApexAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apex, an async actor-learner architecture. see <a class="reference external" href="http://arxiv.org/abs/1803.00933">http://arxiv.org/abs/1803.00933</a> for details.</p>
+<dl class="method">
+<dt id="easy_rl.agents.ApexAgent.communicate">
+<code class="sig-name descname">communicate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/apex_agent.html#ApexAgent.communicate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ApexAgent.communicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run this method on memory hosts</p>
+<p>Receive transitions from actors and add the data to replay buffers.
+Sample from the replay buffers and send the samples to learners.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ApexAgent.learn">
+<code class="sig-name descname">learn</code><span class="sig-paren">(</span><em class="sig-param">batch_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/apex_agent.html#ApexAgent.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ApexAgent.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update upon a batch and send the td_errors to memories if needed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>contains the fields computed during an update.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>extra_results (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ApexAgent.receive_experience">
+<code class="sig-name descname">receive_experience</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/apex_agent.html#ApexAgent.receive_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ApexAgent.receive_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try to receive collected experience from the memory host(s).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ApexAgent.send_experience">
+<code class="sig-name descname">send_experience</code><span class="sig-paren">(</span><em class="sig-param">obs</em>, <em class="sig-param">actions</em>, <em class="sig-param">rewards</em>, <em class="sig-param">next_obs</em>, <em class="sig-param">dones</em>, <em class="sig-param">weights=None</em>, <em class="sig-param">is_vectorized_env=False</em>, <em class="sig-param">num_env=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/apex_agent.html#ApexAgent.send_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ApexAgent.send_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send collected experience to the memory host(s).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.ImpalaAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">ImpalaAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/impala_agent.html#ImpalaAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ImpalaAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Impala, an async actor-learner architecture with V-trace to remedy any policy lag. see <a class="reference external" href="http://arxiv.org/abs/1802.01561">http://arxiv.org/abs/1802.01561</a> for details.</p>
+<dl class="method">
+<dt id="easy_rl.agents.ImpalaAgent.communicate">
+<code class="sig-name descname">communicate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/impala_agent.html#ImpalaAgent.communicate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ImpalaAgent.communicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run this method on memory hosts</p>
+<p>Receive transitions from actors and add the data to replay buffers.
+Sample from the replay buffers and send the samples to learners.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ImpalaAgent.receive_experience">
+<code class="sig-name descname">receive_experience</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/impala_agent.html#ImpalaAgent.receive_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ImpalaAgent.receive_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recieve the experience from the buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ImpalaAgent.send_experience">
+<code class="sig-name descname">send_experience</code><span class="sig-paren">(</span><em class="sig-param">obs</em>, <em class="sig-param">actions</em>, <em class="sig-param">rewards</em>, <em class="sig-param">dones</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/impala_agent.html#ImpalaAgent.send_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ImpalaAgent.send_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the experience to the buffer</p>
+<p>Either add the experience to the (replay) beffer object under the single machine setting,
+or send the exeprience to the memory hosts under the distributed setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>obj</em>) – the input overvations.</p></li>
+<li><p><strong>actions</strong> (<em>obj</em>) – the actions behaved in the interactions.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – extra model-specific data needed for the update operation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.A3CAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">A3CAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/a3c_agent.html#A3CAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.A3CAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>A3C where workers interact with the environments and update the model parameters (on the servers) simutaneously without strict consistency considerations.</p>
+<p>See <a class="reference external" href="http://arxiv.org/abs/1602.01783">http://arxiv.org/abs/1602.01783</a> for more details.</p>
+<dl class="method">
+<dt id="easy_rl.agents.A3CAgent.join">
+<code class="sig-name descname">join</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/a3c_agent.html#A3CAgent.join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.A3CAgent.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <cite>server.join()</cite> if the agent object serves as a parameter server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.A3CAgent.receive_experience">
+<code class="sig-name descname">receive_experience</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/a3c_agent.html#A3CAgent.receive_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.A3CAgent.receive_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acquire training examples from the buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>contains fields of data for making an update.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>batch_data (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.A3CAgent.send_experience">
+<code class="sig-name descname">send_experience</code><span class="sig-paren">(</span><em class="sig-param">obs</em>, <em class="sig-param">actions</em>, <em class="sig-param">rewards</em>, <em class="sig-param">dones</em>, <em class="sig-param">value_preds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/a3c_agent.html#A3CAgent.send_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.A3CAgent.send_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store experience in the buffer</p>
+<p>Postprocess the collected transitions and store the them in the buffer.
+<cite>obs</cite>, <cite>actions</cite>, <cite>rewards</cite>, <cite>next_obs</cite>, <cite>dones</cite> are basic fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>list</em>) – the observed states.</p></li>
+<li><p><strong>actions</strong> (<em>list</em>) – the actions taken in response to the states.</p></li>
+<li><p><strong>rewards</strong> (<em>list</em>) – collected from the environment.</p></li>
+<li><p><strong>next_obs</strong> (<em>list</em>) – the obsered next states.</p></li>
+<li><p><strong>dones</strong> (<em>list</em>) – bool flags indicating whether the episode finishes.</p></li>
+<li><p><strong>is the initializd priorities of samples.</strong> (<em>weights</em>) – </p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em><em>) </em><em>contains the additional algorithm-specific field</em><em>(</em><em>s</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.A3CAgent.should_stop">
+<code class="sig-name descname">should_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/a3c_agent.html#A3CAgent.should_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.A3CAgent.should_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Judge whether the agent should stop working.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.SyncAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">SyncAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/sync_agent.html#SyncAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.SyncAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actors and learners  exchange data and model parameters in a synchronous way.</p>
+<p>For on-policy algorithms, e.g., D-PPO and ES.</p>
+<dl class="method">
+<dt id="easy_rl.agents.SyncAgent.learn">
+<code class="sig-name descname">learn</code><span class="sig-paren">(</span><em class="sig-param">batch_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/sync_agent.html#SyncAgent.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.SyncAgent.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the model(s) with respect to the input data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_data</strong> (<em>dict</em>) – contains the fields for updating models.</p></li>
+<li><p><strong>need_recovery</strong> (<em>bool</em>) – whether to recovery multi-channel obs from flattened array.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>extra outputs.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>extra_results (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.DPPOAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">DPPOAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/dppo_agent.html#DPPOAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.DPPOAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>DPPO is an on-policy algorithm where collected samples are traversed for several times to increase sample efficiency.</p>
+<p>See <a class="reference external" href="http://arxiv.org/abs/1707.02286">http://arxiv.org/abs/1707.02286</a> for more details.</p>
+<dl class="method">
+<dt id="easy_rl.agents.DPPOAgent.communicate">
+<code class="sig-name descname">communicate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/dppo_agent.html#DPPOAgent.communicate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.DPPOAgent.communicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run this method on memory hosts</p>
+<p>Receive transitions from actors and add the data to replay buffers.
+Sample from the replay buffers and send the samples to learners.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.DPPOAgent.receive_experience">
+<code class="sig-name descname">receive_experience</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/dppo_agent.html#DPPOAgent.receive_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.DPPOAgent.receive_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recieve the experience from the buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.DPPOAgent.send_experience">
+<code class="sig-name descname">send_experience</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/dppo_agent.html#DPPOAgent.send_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.DPPOAgent.send_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the experience to the buffer</p>
+<p>Either add the experience to the (replay) beffer object under the single machine setting,
+or send the exeprience to the memory hosts under the distributed setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>obj</em>) – the input overvations.</p></li>
+<li><p><strong>actions</strong> (<em>obj</em>) – the actions behaved in the interactions.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – extra model-specific data needed for the update operation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="easy_rl.agents.ESAgent">
+<em class="property">class </em><code class="sig-prename descclassname">easy_rl.agents.</code><code class="sig-name descname">ESAgent</code><span class="sig-paren">(</span><em class="sig-param">observation_space</em>, <em class="sig-param">action_space</em>, <em class="sig-param">agent_config</em>, <em class="sig-param">model_config</em>, <em class="sig-param">distributed_spec</em>, <em class="sig-param">custom_model=None</em>, <em class="sig-param">checkpoint_dir=''</em>, <em class="sig-param">export_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/es_agent.html#ESAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ESAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>ES is an on-policy stochastic optimization method</p>
+<p>Actors are tasked to generate perturbations and evaluate the performances of perturbed model parameters.
+The learner aggregates the perturbations into one update direction based on their performances.</p>
+<dl class="method">
+<dt id="easy_rl.agents.ESAgent.communicate">
+<code class="sig-name descname">communicate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/es_agent.html#ESAgent.communicate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ESAgent.communicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run this method on memory hosts</p>
+<p>Receive transitions from actors and add the data to replay buffers.
+Sample from the replay buffers and send the samples to learners.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ESAgent.receive_experience">
+<code class="sig-name descname">receive_experience</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/es_agent.html#ESAgent.receive_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ESAgent.receive_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recieve the experience from the buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="easy_rl.agents.ESAgent.send_experience">
+<code class="sig-name descname">send_experience</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/easy_rl/agents/es_agent.html#ESAgent.send_experience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easy_rl.agents.ESAgent.send_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the experience to the buffer</p>
+<p>Either add the experience to the (replay) beffer object under the single machine setting,
+or send the exeprience to the memory hosts under the distributed setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>obj</em>) – the input overvations.</p></li>
+<li><p><strong>actions</strong> (<em>obj</em>) – the actions behaved in the interactions.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – extra model-specific data needed for the update operation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="models.html" class="btn btn-neutral float-right" title="Models Module Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="envs.html" class="btn btn-neutral float-left" title="Environment-Related Interfaces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Solving Real-world Problems with EasyRL &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Environment-Related Interfaces" href="envs.html" />
+    <link rel="prev" title="How to Use EasyRL on PAI" href="using-easyrl-on-pai.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Solving Real-world Problems with EasyRL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reranking-items-by-ddpg-es">Reranking items by DDPG/ES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#learn-from-historic-data-by-marwil">Learn from Historic DATA by MARWIL</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Solving Real-world Problems with EasyRL</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="solving-real-world-problems-with-easyrl">
+<h1>Solving Real-world Problems with EasyRL<a class="headerlink" href="#solving-real-world-problems-with-easyrl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="reranking-items-by-ddpg-es">
+<h2>Reranking items by DDPG/ES<a class="headerlink" href="#reranking-items-by-ddpg-es" title="Permalink to this headline">¶</a></h2>
+<p>Modeling: <a class="reference external" href="https://yuque.antfin-inc.com/pai/a3gent/sosnwc">排序策略优化解决方案</a></p>
+<p>code: <a class="reference external" href="http://gitlab.alibaba-inc.com/A3gent_Customer/tutourial_for_a3gentnew/blob/master/simulator-interaction/run_apex_ddpg_with_simulator_on_pai.py">ranking policy with ddpg</a></p>
+<p>code: <a class="reference external" href="http://gitlab.alibaba-inc.com/A3gent_Customer/tutourial_for_a3gentnew/blob/master/simulator-interaction/run_es_with_simulator_on_pai.py">ranking policy with ES</a></p>
+<p>more details(TBD)</p>
+</div>
+<div class="section" id="learn-from-historic-data-by-marwil">
+<h2>Learn from Historic DATA by MARWIL<a class="headerlink" href="#learn-from-historic-data-by-marwil" title="Permalink to this headline">¶</a></h2>
+<p>more details(TBD)</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="envs.html" class="btn btn-neutral float-right" title="Environment-Related Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="using-easyrl-on-pai.html" class="btn btn-neutral float-left" title="How to Use EasyRL on PAI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>easy_rl.utils.utils &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>easy_rl.utils.utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for easy_rl.utils.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2019 Alibaba Inc. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterable</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+
+<div class="viewcode-block" id="discount"><a class="viewcode-back" href="../../../utils.html#easy_rl.utils.utils.discount">[docs]</a><span class="k">def</span> <span class="nf">discount</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">dones</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the discounted cumulative sum</span>
+
+<span class="sd">    e.g., when x=[1, 1, 1, 1, 1, 1],</span>
+<span class="sd">    dones=[False, False, False, True, False, True] and gamma=0.9,</span>
+<span class="sd">    the returned value is [3.439, 2.71, 1.9, 1, 1.9, 1]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">dones</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">ys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">acc</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">dones</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">ys</span></div>
+
+
+<div class="viewcode-block" id="unflatten_tensor"><a class="viewcode-back" href="../../../utils.html#easy_rl.utils.utils.unflatten_tensor">[docs]</a><span class="k">def</span> <span class="nf">unflatten_tensor</span><span class="p">(</span><span class="n">flatten_vars</span><span class="p">,</span> <span class="n">var_shapes_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change a flattened tensor back</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        flatten_vars (tensor): flattened variables.</span>
+<span class="sd">        var_shapes_list (list): the shape of each variable.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        outputs (list): a list of the recovered variables.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">shape_</span> <span class="ow">in</span> <span class="n">var_shapes_list</span><span class="p">:</span>
+        <span class="n">params_size</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">shape_</span><span class="p">)</span>
+        <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">flatten_vars</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span> <span class="o">+</span> <span class="n">params_size</span><span class="p">],</span> <span class="n">shape_</span><span class="p">))</span>
+        <span class="n">offset</span> <span class="o">+=</span> <span class="n">params_size</span>
+    <span class="k">return</span> <span class="n">outputs</span></div>
+
+
+<div class="viewcode-block" id="prod"><a class="viewcode-back" href="../../../utils.html#easy_rl.utils.utils.prod">[docs]</a><span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes the product along the elements in an iterable. Returns 1 for empty iterable.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        xs (obj): integer or iterable containing numbers.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        p (int): product along each axis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">*=</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="n_step_adjustment"><a class="viewcode-back" href="../../../utils.html#easy_rl.utils.utils.n_step_adjustment">[docs]</a><span class="k">def</span> <span class="nf">n_step_adjustment</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span>
+                      <span class="n">actions</span><span class="p">,</span>
+                      <span class="n">rewards</span><span class="p">,</span>
+                      <span class="n">new_obs</span><span class="p">,</span>
+                      <span class="n">dones</span><span class="p">,</span>
+                      <span class="n">gamma</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>
+                      <span class="n">n_step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adjust rewards to make TD(n)</span>
+
+<span class="sd">    reward[i] = (</span>
+<span class="sd">        reward[i] * gamma**0 +</span>
+<span class="sd">        reward[i+1] * gamma**1 +</span>
+<span class="sd">        ... +</span>
+<span class="sd">    reward[i+n_step-1] * gamma**(n_step-1))</span>
+
+<span class="sd">    The ith new_obs is also adjusted to point to the (i+n_step-1)&#39;th new obs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">traj_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rewards</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_step</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">traj_length</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dones</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_step</span><span class="p">):</span>
+            <span class="n">new_obs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_obs</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">dones</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dones</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">rewards</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gamma</span><span class="o">**</span><span class="n">j</span> <span class="o">*</span> <span class="n">rewards</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">dones</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">obs</span><span class="p">[:</span><span class="n">traj_length</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+        <span class="n">actions</span><span class="p">[:</span><span class="n">traj_length</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rewards</span><span class="p">[:</span><span class="n">traj_length</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="n">new_obs</span><span class="p">[:</span><span class="n">traj_length</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dones</span><span class="p">[:</span><span class="n">traj_length</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="compute_targets"><a class="viewcode-back" href="../../../utils.html#easy_rl.utils.utils.compute_targets">[docs]</a><span class="k">def</span> <span class="nf">compute_targets</span><span class="p">(</span><span class="n">rewards</span><span class="p">,</span>
+                    <span class="n">dones</span><span class="p">,</span>
+                    <span class="n">value_preds</span><span class="p">,</span>
+                    <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+                    <span class="n">lambda_</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                    <span class="n">use_gae</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the advantages of sampled state-action pairs as well as the state value targets to be approximated.</span>
+
+<span class="sd">    Note that the last transition may be dropped when the last element of value_preds is used.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        rewards, dones are basic fields generated via interactions.</span>
+<span class="sd">        values (obj): estimated state values.</span>
+<span class="sd">        gamma (float): discount factor.</span>
+<span class="sd">        lambda_ (float): the GAE factor.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        advantages (obj): advantages of the collected state-action pairs.</span>
+<span class="sd">        value_targets (obj): targets of the state value function approximator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">use_gae</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">value_preds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;GAE requires predicted state values&quot;</span>
+        <span class="n">value_preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value_preds</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">delta_t</span> <span class="o">=</span> <span class="n">rewards</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">value_preds</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dones</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">-</span> <span class="n">value_preds</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># This formula for the advantage comes</span>
+        <span class="c1"># &quot;Generalized Advantage Estimation&quot;: https://arxiv.org/abs/1506.02438</span>
+        <span class="n">advantages</span> <span class="o">=</span> <span class="n">discount</span><span class="p">(</span><span class="n">delta_t</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">dones</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">value_targets</span> <span class="o">=</span> <span class="p">(</span><span class="n">advantages</span> <span class="o">+</span> <span class="n">value_preds</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">value_preds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">returns</span> <span class="o">=</span> <span class="n">discount</span><span class="p">(</span><span class="n">rewards</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">dones</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">advantages</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">-</span> <span class="mi">0</span>
+            <span class="n">value_targets</span> <span class="o">=</span> <span class="n">returns</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value_preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value_preds</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="n">last_r</span> <span class="o">=</span> <span class="n">value_preds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">rewards_plus_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">rewards</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">last_r</span><span class="p">])])</span>
+            <span class="n">returns</span> <span class="o">=</span> <span class="n">discount</span><span class="p">(</span><span class="n">rewards_plus_v</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">dones</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">advantages</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">-</span> <span class="n">value_preds</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">value_targets</span> <span class="o">=</span> <span class="n">returns</span>
+
+    <span class="k">return</span> <span class="n">advantages</span><span class="p">,</span> <span class="n">value_targets</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

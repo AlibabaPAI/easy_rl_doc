@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>easy_rl.agents.es_agent &mdash; EasyRL 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> EasyRL
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing EasyRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Quick Start Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-easyrl-on-pai.html">How to Use EasyRL on PAI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Solving Real-world Problems with EasyRL</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developing Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../envs.html">Environment-Related Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../agents.html">Agents Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils.html">Utils Module Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributes to EasyRL</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EasyRL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>easy_rl.agents.es_agent</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for easy_rl.agents.es_agent</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2019 Alibaba Inc. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">six.moves.queue</span> <span class="k">as</span> <span class="nn">Queue</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">easy_rl.models</span> <span class="k">import</span> <span class="n">EvolutionStrategy</span>
+<span class="kn">from</span> <span class="nn">easy_rl.agents</span> <span class="k">import</span> <span class="n">SyncAgent</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ESAgent"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.ESAgent">[docs]</a><span class="k">class</span> <span class="nc">ESAgent</span><span class="p">(</span><span class="n">SyncAgent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ES is an on-policy stochastic optimization method</span>
+
+<span class="sd">    Actors are tasked to generate perturbations and evaluate the performances of perturbed model parameters.</span>
+<span class="sd">    The learner aggregates the perturbations into one update direction based on their performances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_agent_name</span> <span class="o">=</span> <span class="s2">&quot;ES&quot;</span>
+    <span class="n">_default_model_class</span> <span class="o">=</span> <span class="s2">&quot;ES&quot;</span>
+    <span class="n">_valid_model_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">EvolutionStrategy</span><span class="p">]</span>
+    <span class="n">_valid_model_class_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ES&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ESAgent.send_experience"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.ESAgent.send_experience">[docs]</a>    <span class="k">def</span> <span class="nf">send_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_actor2mem_q</span><span class="o">.</span><span class="n">put</span><span class="p">([</span>
+                <span class="n">arr</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;sample_batch_size&quot;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="p">(</span>
+                    <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_names</span><span class="p">])</span>
+            <span class="p">])</span>
+        <span class="k">except</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Full</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">current_sampled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_global_num_sampled_per_iteration</span><span class="p">,</span> <span class="p">{})</span>
+
+        <span class="c1"># waiting for learner optimization then start the next iteration</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;curent_sampled:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_sampled</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;sync at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+
+        <span class="n">got_signal</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">got_signal</span><span class="p">:</span>
+            <span class="c1"># See if the learner has prepared for leaving.</span>
+            <span class="n">learner_done_flags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_learner_done_flags</span><span class="p">,</span>
+                                                   <span class="p">{})</span>
+            <span class="c1"># Assume there is only one learner which is the case of DPPO.</span>
+            <span class="k">if</span> <span class="n">learner_done_flags</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="c1"># Notify the `should_stop()` to stop.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stop_sender_indicator</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+                <span class="k">break</span>
+
+            <span class="c1"># Try to receive sync barrier signal as usual.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sync_barrier_signal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_learner2actor_q</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+                <span class="n">got_signal</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">except</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Empty</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;wait for sync barrier signal for 10 seconds.&quot;</span><span class="p">)</span>
+                <span class="n">got_signal</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;sync end at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ready_to_send</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># clear the lists</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">][:</span><span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">])]</span></div>
+
+<div class="viewcode-block" id="ESAgent.communicate"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.ESAgent.communicate">[docs]</a>    <span class="k">def</span> <span class="nf">communicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run this method on memory hosts</span>
+
+<span class="sd">        Receive transitions from actors and add the data to replay buffers.</span>
+<span class="sd">        Sample from the replay buffers and send the samples to learners.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_actor2mem_q</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_actor2mem_q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+                <span class="n">name</span><span class="p">:</span> <span class="n">value</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_element_names</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_receive_count</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_receive_count</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_receive_record</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_last_receive_record</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_receive_count</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_num_sampled_timesteps</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;memory add:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_receive_count</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receive_count</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;sample_batch_size&quot;</span><span class="p">]</span> <span class="o">*</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">distributed_handler</span><span class="o">.</span><span class="n">num_actor_hosts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">batch_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;sample_batch_size&quot;</span><span class="p">]</span> <span class="o">*</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">distributed_handler</span><span class="o">.</span><span class="n">num_actor_hosts</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mem2learner_q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">batch_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_names</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="ESAgent.receive_experience"><a class="viewcode-back" href="../../../agents.html#easy_rl.agents.ESAgent.receive_experience">[docs]</a>    <span class="k">def</span> <span class="nf">receive_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receive_q</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receive_q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="c1"># drop the buffer_id</span>
+        <span class="n">samples</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;learner receive:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">value</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_element_names</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+        <span class="p">}</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The PAI Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
